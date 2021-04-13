@@ -9,7 +9,7 @@ import ScreenBrightness from 'react-native-screen-brightness';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-const TIME_LEFT = 6900;
+const TIME_LEFT = 6000;
 
 export const QRScreen = ({ navigation }) => {
 
@@ -60,7 +60,7 @@ export const QRScreen = ({ navigation }) => {
       //   getQRCode()
       // }
       return () => {
-        setTimeLeft(TIME_LEFT);
+        setTimeLeft(TIME_LEFT+100);
         console.log(timeLeft);
         clearInterval(startTimer)
       }
@@ -77,7 +77,9 @@ export const QRScreen = ({ navigation }) => {
             value={QRCode}
             size={height_qr}
           />
-          <Text>Mã QR sẽ tự động cập nhật sau {parseInt(timeLeft / 1000)} giây</Text>
+          <View style={styles.text}>
+            <Text>Mã QR sẽ tự động cập nhật sau {parseInt(timeLeft / 1000)} giây</Text>
+          </View>
         </View>
       ) : (
         <View style={styles.header}>
@@ -103,6 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  text: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,

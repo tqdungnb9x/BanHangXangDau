@@ -17,6 +17,7 @@ import MapTest from "../screens/MapTest";
 import { NavigationContainer } from '@react-navigation/native';
 import { BeginNavigator } from "./BeginNavigator";
 import { QRScreen } from "../screens/QRScreen";
+import { UserInfoScreen } from "../screens/UserInfoScreen";
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -77,7 +78,7 @@ export default function HomeTab() {
             />
             <Tab.Screen
               name="NotificationScreen"
-              component={NotificationScreen}
+              component={UserInfoScreen}
               options={{
                 tabBarLabel: "Thông báo",
                 tabBarColor: "#fff",

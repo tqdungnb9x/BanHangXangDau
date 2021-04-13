@@ -1,9 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { createStackNavigator } from "@react-navigation/stack";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import NewsList from '../components/NewsList'
 import NewsDetail from '../components/NewsDetail'
+import { UserInfoScreen } from './UserInfoScreen';
+import { ChangePassword } from './ChangePassword';
 
 const Stack = createStackNavigator();
 
@@ -13,17 +16,30 @@ export default NewsScreen = () => {
             <Stack.Screen
                 name="NewsList"
                 component={NewsList}
-                options={{
+                options={({ navigation }) => ({
+                    // title: "Tin tức",
                     headerTitle: "Tin tức",
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
-                        color:'#0d60ae',
+                        color: '#0d60ae',
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                }}
+                    headerLeft: () => (
+                        <View/>
+                    ),
+                    headerRight: () => (
+                        <Icon.Button
+                            name="person-outline"
+                            size={25}
+                            color="#0d60ae"                            
+                            backgroundColor="#fff"
+                            onPress={() => navigation.navigate('UserInfoScreen')}
+                        />
+                    ),
+                })}
             />
             <Stack.Screen
                 name="NewsDetail"
@@ -33,12 +49,41 @@ export default NewsScreen = () => {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
-                        color:'#0d60ae',
+                        color: '#0d60ae',
                         textAlign: 'center',
                         alignItems: 'center'
                     },
                 }}
             />
+            <Stack.Screen
+                name="UserInfoScreen"
+                component={UserInfoScreen}
+                options={{
+                    headerTitle: "Thông tin cá nhân",
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#0d60ae',
+                        textAlign: 'center',
+                        alignItems: 'center'
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="ChangePassword"
+                component={ChangePassword}
+                options={{
+                    headerTitle: "Đổi mật khẩu",
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#0d60ae',
+                        textAlign: 'center',
+                        alignItems: 'center'
+                    },
+                }}
+            />
+
         </Stack.Navigator>
     );
 };

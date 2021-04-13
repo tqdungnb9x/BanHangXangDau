@@ -17,6 +17,7 @@ import MapTest from './screens/MapTest';
 import NewsScreen from './screens/NewsScreen';
 import configStored from './stores';
 import { NavigationContainer } from '@react-navigation/native';
+import { HomeStack } from './navigator/NewsStack';
 
 
 const { store, persistor } = configStored();

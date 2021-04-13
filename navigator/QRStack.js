@@ -6,12 +6,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import HomeTab from "./HomeTab";
 import { UserInfoScreen } from "../screens/UserInfoScreen";
+import NewsScreen from "../screens/NewsScreen";
+import { BillInfoScreen } from "../screens/BillInfoScreen";
 
 
 const Stack = createStackNavigator();
 
 
-export const HomeStack = () => {
+export const QRStrack = ({ navigation }) => {
 
     return (
         <NavigationContainer>
@@ -29,11 +31,11 @@ export const HomeStack = () => {
             >
                 <Stack.Screen
                     name="HomeTab"
-                    component={HomeTab}
+                    component={BillInfoScreen}
                     options={{
                         title: "Trang chủ",
-                        
-                        headerLeft: (navigation) => (
+
+                        headerRight: () => (
                             <Icon.Button
                                 name="person-outline"
                                 size={25}
