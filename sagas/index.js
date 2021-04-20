@@ -4,7 +4,7 @@ import {AuthTypes} from '../stores/authRedux';
 import { UserTypes } from '../stores/userRedux';
 
 import {login, logout} from './authSaga';
-import {getInfo} from './userSaga';
+import {getInfo, getOrders} from './userSaga';
 // import {getCode} from './fetchSaga'
 
 export default function* root() {
@@ -12,6 +12,8 @@ export default function* root() {
     takeLatest(AuthTypes.AUTH_LOGIN, login),
     takeLatest(AuthTypes.AUTH_LOGOUT, logout),
     takeLatest(UserTypes.USER_GET_INFO, getInfo),
+    takeLatest(UserTypes.USER_GET_ORDERS, getOrders),
+
     // takeLatest(FetchTypes.FETCH_GET_CODE,getCode)
   ]);
 }

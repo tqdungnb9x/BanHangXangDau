@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
-  Alert
+  Alert,
+  Modal,
+  Image
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -21,25 +23,32 @@ export const SignInScreen = () => {
   const [user, onChangeUser] = useState("");
   const [password, onChangePassword] = useState("");
   const [securePassword, setSecurePassword] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
 
   const passwordInputRef = createRef();
 
-  const { login } = useAuth();
+  const { login, auth } = useAuth();
   const { getInfo } = useUserInfo();
   const loginApi = () => {
-    console.log("user");
+    console.log("ButtonLoginApi");
     login(
-      user ,
+      user,
       password,
       (response) => {
+        console.log("login.onSuccess");
         console.log(response.message)
         // console.log('response', response);
+        console.log(response.token);
         getInfo((response) => {
+          console.log('login');
           console.log(' user info:', response);
         });
+        setModalVisible(false)
       },
       (error) => {
+        console.log("login.onError");
+        setModalVisible(false)
         Alert.alert('Lỗi đăng nhập', error.message, [{ text: 'Okay' }], {
           cancelable: true,
         });
@@ -58,11 +67,21 @@ export const SignInScreen = () => {
         { text: 'OK' },
       ]);
     } else {
-      console.log('1');
+      console.log("checkLoginField");
+      setModalVisible(true);
+      {modalVisible ? console.log("1"):console.log("2")}
       loginApi();
+      // setTimeout(() => {
+      //   if(auth.loggedIn==false){
+      //     setModalVisible(false)
+      //     Alert.alert("Lỗi đăng nhập", "Kết nối thất bại", [{
+      //       text: 'OK'
+      //     }])
+      //   }
+
+      // }, 10000)
     }
   }
-
 
   return (
     <KeyboardAvoidingView enabled
@@ -71,6 +90,24 @@ export const SignInScreen = () => {
     >
       <StatusBar backgroundColor="#0d60ae" barStyle="light-content" />
       <View style={styles.header}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(false);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Image
+                style={styles.loading}
+                source={require('../assets/images/Spinner-1s-301px.gif')}
+              />
+            </View>
+          </View>
+        </Modal>
         <Animatable.Image
           animation="bounceIn"
           duration={1500}
@@ -118,7 +155,9 @@ export const SignInScreen = () => {
             ref={passwordInputRef}
             blurOnSubmit={false}
           />
-          <TouchableOpacity onPress={changeSecurePassword}>
+          <TouchableOpacity onPress={() => {
+            setSecurePassword(!securePassword);
+          }}>
             {securePassword ? (
               <FontAwesome name="eye-slash" color="#0d60ae" size={23} />
             ) : (
@@ -128,7 +167,6 @@ export const SignInScreen = () => {
         </View>
         <View style={
           { alignItems: 'center', }
-
         }>
           <TouchableOpacity
             onPress={checkLoginField}
@@ -158,9 +196,9 @@ export const SignInScreen = () => {
   );
 };
 
-
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const height_logo = height * 0.3;
+const loading = width * 0.2;
 
 const styles = StyleSheet.create({
   container: {
@@ -182,6 +220,10 @@ const styles = StyleSheet.create({
   logo: {
     width: height_logo,
     height: height_logo,
+  },
+  loading: {
+    width: loading,
+    height: loading,
   },
   title: {
     color: "#0d60ae",
@@ -236,6 +278,31 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingVertical: 0,
     color: '#0d60ae',
-
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    // marginTop: 22
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: "white",
+    borderRadius: 50,
+    // padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
   },
 });

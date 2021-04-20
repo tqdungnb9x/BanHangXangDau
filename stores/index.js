@@ -11,7 +11,7 @@ import rootSaga from '../sagas';
 const configStored = () => {
   const reducers = combineReducers({
     auth: AuthReducer,
-    userInfo: UserReducer,
+    user: UserReducer,
     news: NewsReducer,
     // fetch: FetchReducer,
   });

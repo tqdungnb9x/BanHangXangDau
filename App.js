@@ -14,10 +14,12 @@ import {PersistGate} from 'redux-persist/lib/integration/react';
 import { BeginNavigator } from './navigator/BeginNavigator'
 import HomeTab from './navigator/HomeTab';
 import MapTest from './screens/MapTest';
-import NewsScreen from './screens/NewsScreen';
+import NewsScreen from './navigator/NewsStack';
 import configStored from './stores';
 import { NavigationContainer } from '@react-navigation/native';
 import { HomeStack } from './navigator/NewsStack';
+import { ChangePassword } from './screens/ChangePassword';
+import OrdersStack from './navigator/OrdersStack';
 
 
 const { store, persistor } = configStored();
@@ -28,8 +30,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <HomeTab/>
 
+      {/* <NavigationContainer>
+
+      <OrdersStack/>
+
+      </NavigationContainer> */}
+
+      <BeginNavigator/>
 
       </PersistGate>
 

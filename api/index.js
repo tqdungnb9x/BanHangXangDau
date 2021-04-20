@@ -5,6 +5,7 @@ import {Platform} from 'react-native';
 let authToken = null;
 const setAuthToken = (token) => {
   authToken = token;
+ 
 };
 
 const create = () => {
@@ -62,13 +63,18 @@ const create = () => {
   const getCode = ()=>{
     return api.get('/getQRCode')
   }
+  const getOrders = ()=>{
+    console.log('api getOrders');
+    return api.get('/user/getOrders')
+  }
 
   return {
     login,
     logout,
     signUp,
     getUser,
-    getCode
+    getCode,
+    getOrders
   };
 };
 

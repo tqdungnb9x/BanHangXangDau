@@ -5,21 +5,32 @@ import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Alert } from "rea
 import { useAuth } from '../hooks/useAuth';
 import { useUserInfo } from '../hooks/useUserInfo'
 
+
 export const UserInfoScreen = ({ navigation }) => {
 
-  const {userInfo} = useUserInfo();
+  const {userInfo, clearUserData} = useUserInfo();
   const { logout, clearAllData } = useAuth();
 
+  console.log("UserInfoScreen");
+  // console.log("userInfo:",userInfo);
+  // console.log("userInfo.phone:",userInfo.phone);
+
   const checkLogoutField = () => {
-    console.log("user");
     clearAllData((response) => {
-      console.log(' user info:', response);
+      console.log("clearAllData");
+      console.log('clearAllData:', response);
+
+    });
+    clearUserData((response) => {
+      console.log("clearUserData");
+      console.log('clearUserData:', response);
+
     });
     logout(
       (response) => {
+        console.log("logout");
         console.log(response.message)
         // console.log('response', response);
-
       },
       (error) => {
         Alert.alert('Lỗi đăng xuất', error.message, [{ text: 'Okay' }], {
@@ -27,13 +38,12 @@ export const UserInfoScreen = ({ navigation }) => {
         });
       },
     )
-
+    console.log("checkLogoutField");
+    // console.log("logout userInfo:", userInfo);
   }
-
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-
       <Avatar
         rounded
         // size="xlarge"
@@ -74,10 +84,10 @@ export const UserInfoScreen = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
       <Text>
-        Họ tên: {userInfo.phone}
+      {userInfo.name}
       </Text>
       <Text>
-        SDT: {userInfo.phone}
+        {userInfo.phone}
       </Text>
     </View>
   );

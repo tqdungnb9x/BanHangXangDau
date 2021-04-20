@@ -7,9 +7,9 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { HomeScreen } from '../screens/HomeScreen'
 import { MapScreen } from '../screens/MapScreen'
-import { BillListScreen } from '../screens/BillListScreen'
+import { BillListScreen } from '../screens/OrdersListScreen'
 import {HistoryScreen} from '../screens/HistoryScreen'
-import NewsScreen from '../screens/NewsScreen'
+import NewsStack from './NewsStack'
 import {NotificationScreen} from '../screens/NotificationScreen'
 
 import { useAuth } from '../hooks/useAuth'
@@ -18,6 +18,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { BeginNavigator } from "./BeginNavigator";
 import { QRScreen } from "../screens/QRScreen";
 import { UserInfoScreen } from "../screens/UserInfoScreen";
+import OrdersStack from "./OrdersStack";
+import { SignInScreen } from "../screens/SignInScreen";
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -33,7 +35,7 @@ export default function HomeTab() {
           <Tab.Navigator initialRouteName="NewsScreen" activeColor="#0d60ae" inactiveColor="#eae9e9" shifting={true} >
             <Tab.Screen
               name="NewsScreen"
-              component={NewsScreen}
+              component={NewsStack}
               options={{
                 tabBarLabel: "Tin tức",
                 tabBarColor: "#fff",
@@ -55,8 +57,8 @@ export default function HomeTab() {
               }}
             />
             <Tab.Screen
-              name="BillListScreen"
-              component={QRScreen}
+              name="OrdersStack"
+              component={OrdersStack}
               options={{
                 tabBarLabel: "Đơn hàng",
                 tabBarColor: "#fff",
@@ -89,10 +91,9 @@ export default function HomeTab() {
             />
           </Tab.Navigator>
         ) : (
-          <BeginNavigator />
+          <SignInScreen />
         )
       }
     </NavigationContainer>
   );
 }
-

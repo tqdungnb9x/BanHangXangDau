@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Dimensions, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar, Image, RefreshControl, View } from "react-native";
+import { Text, Dimensions, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar, Image, RefreshControl, View, Alert } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import _ from 'lodash'
 import axios from 'axios'
@@ -13,11 +13,11 @@ function Item({ item, onPress, backgroundColor, textColor }) {
             <Text style={{ ...styles.columnRowTxt }}>{item.time}</Text> */}
             <View style={{ height: height_loading, width: height_loading }}>
                 <Image source={{
-            
+
                     uri: item.image,
                 }}
                     style={styles.logo}
-                    resizeMethod ='scale' />
+                    resizeMethod='scale' />
             </View>
             <View style={styles.text}>
                 <Text style={[styles.title, textColor]}>{item.title}</Text>
@@ -41,6 +41,22 @@ export default NewsList = ({ navigation }) => {
         }).catch(function (error) {
             setRefreshing(false)
             console.log(error)
+            console.log(typeof(error));
+            console.log(error.toString());
+            if (error == "Error: Network Error") {
+                Alert.alert(
+                    "Lỗi kết nối mạng",
+                    "Vui lòng kiểm tra kết nối mạng",
+                    [
+                        { text: "Thử lại", onPress: () => console.log("thử lại") },
+                        {
+                            text: "Hủy",
+                            onPress: () => console.log("Hủy"),
+                            style: "cancel"
+                        },
+                    ]
+                );
+            }
         })
     }
 
@@ -112,12 +128,12 @@ const styles = StyleSheet.create({
     loading: {
         height: height_loading,
         width: height_loading,
-        alignSelf:'center'
+        alignSelf: 'center'
     },
     logo: {
-        flex:1,
-        padding:5,
-        margin:5
+        flex: 1,
+        padding: 5,
+        margin: 5
         // resizeMode: 'contain',
 
     },
@@ -127,10 +143,10 @@ const styles = StyleSheet.create({
     },
     text: {
         flexDirection: "column",
-        justifyContent:"space-between",
+        justifyContent: "space-between",
         flex: 1,
         paddingStart: 5,
-        paddingVertical:5
+        paddingVertical: 5
     },
     time: {
         fontSize: 10,
