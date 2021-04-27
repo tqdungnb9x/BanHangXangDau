@@ -11,7 +11,7 @@ import {
 
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-const API_KEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
+const API_KEY = 'TRUMP_KEY'
 import Geolocation from 'react-native-geolocation-service'
 
 navigator.geolocation = require('react-native-geolocation-service');
