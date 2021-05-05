@@ -1,11 +1,11 @@
 import axios from 'axios';
 import _ from 'lodash';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 let authToken = null;
 const setAuthToken = (token) => {
   authToken = token;
- 
+
 };
 
 const create = () => {
@@ -19,7 +19,7 @@ const create = () => {
     if (authToken) {
       request.headers.common.Authorization = `Bearer ${authToken}`;
     }
-    
+
     return request;
   });
 
@@ -43,7 +43,7 @@ const create = () => {
     };
     return api.post('/auth/signIn', data);
   };
-  const signUp = (username, password,role) => {
+  const signUp = (username, password, role) => {
     const data = {
       username,
       password,
@@ -56,17 +56,36 @@ const create = () => {
     return api.post('/auth/signOut');
   };
 
-  const getUser = ()=>{
+  const getUser = () => {
     return api.get('/user/getInfo')
   }
-  
-  const getCode = ()=>{
+
+  const getCode = () => {
     return api.get('/getQRCode')
   }
-  const getOrders = ()=>{
+  const getOrders = () => {
     console.log('api getOrders');
     return api.get('/user/getOrders')
   }
+  const getHistory = () => {
+    console.log('api getHistory');
+    return api.get('/user/getHistory')
+  }
+  const updateInfo = (email, address, avatar) => {
+    const data = {
+      email, 
+      address, 
+      avatar
+    };
+    return api.post('/user/updateInfo', data);
+  };
+  const changePassword = (currentPassword, newPassword) => {
+    const data = {
+      currentPassword, 
+      newPassword
+    };
+    return api.post('/user/changePassword', data);
+  };
 
   return {
     login,
@@ -74,7 +93,10 @@ const create = () => {
     signUp,
     getUser,
     getCode,
-    getOrders
+    getOrders,
+    getHistory,
+    updateInfo,
+    changePassword
   };
 };
 

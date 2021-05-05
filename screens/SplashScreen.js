@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {
-  TextPlaceholder
-} from 'react-native-js-shimmer-placeholder';
+import LinearGradient from 'react-native-linear-gradient';
+
+
 
 export const SplashScreen = () => {
 
@@ -30,19 +30,20 @@ export const SplashScreen = () => {
           />
 
         </View>
-        <TextPlaceholder
-          show={true}
-          textStyle={{
+        <LinearGradient colors={['#f68026', '#fdf26a']} >
+
+        <Text
+          style={{
             color: '#ffff',
             fontSize: 30,
             fontWeight: 'bold',
             textAlign: 'center',
             paddingHorizontal:10
           }}
-          textColor={"#F47B2A"}
         >
           Ứng dụng bán hàng toàn quốc dành cho tài xế
-        </TextPlaceholder>
+        </Text>
+        </LinearGradient>
     </View>
   );
 };

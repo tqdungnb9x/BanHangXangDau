@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View, Text, } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
 
-export const OrdersInfoScreen = ({ route, navigation }) => {
+export const HistoryInfoScreen = ({ route, navigation }) => {
   const { vehicle, code, type, status, date, receiver, totalQuantity } = route.params;
   return (
     <View style={styles.text}>
@@ -26,27 +26,6 @@ export const OrdersInfoScreen = ({ route, navigation }) => {
         <Text style={{  fontSize: 18 }}>Phương tiện:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{vehicle}</Text>
       </View>
-      <TouchableOpacity
-        onPress={()=> navigation.navigate("QRScreen")}
-        style={[
-          styles.signIn,
-          {
-            borderColor: '#0d60ae',
-            borderWidth: 1,
-            marginTop: 18,
-            alignItems: 'center',
-
-          },
-        ]}>
-        <Ionicon name="qr-code" color={'#0d60ae'} size={25} />
-        <Text
-          style={[
-            styles.textSign,
-            {
-              color: '#0d60ae',
-            },
-          ]}>QR</Text>
-      </TouchableOpacity>
     </View>
   );
 };

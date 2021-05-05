@@ -51,7 +51,7 @@ function Item({ item, onPress, backgroundColor, textColor }) {
                     {item.receiver}
                 </Text>
                 <Text style={styles.date}>{item.date}</Text>
-                <Text style={{ fontWeight: "bold", fontSize: 12, color: 'green' }}>☐ {item.status}</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 12, color: 'green' }}>☑ {item.status}</Text>
 
             </View>
             <View style={{ marginLeft: "auto", }}>
@@ -65,16 +65,16 @@ function Item({ item, onPress, backgroundColor, textColor }) {
     );
 }
 
-export default OrdersListScreen = ({ navigation }) => {
+export default HistoryListScreen = ({ navigation }) => {
 
-    const { getOrders, clearUserData } = useUserInfo();
-    const { logout, clearAllData } = useAuth();
+    const { getHistory, clearUserData } = useUserInfo();
+    const { clearAllData } = useAuth();
     const [refreshing, setRefreshing] = React.useState(false);
     const [newsData, setNewsData] = useState([])
-    const [selectedId, setSelectedId] = useState("order0001");
+    // const [selectedId, setSelectedId] = useState("order0001");
 
     useEffect(() => {
-        getOrders(
+        getHistory(
             (response) => {
                 setNewsData(response.orders)
                 setRefreshing(false)
@@ -108,7 +108,7 @@ export default OrdersListScreen = ({ navigation }) => {
                 item={item}
                 onPress={() => {
                     console.log(item);
-                    navigation.navigate("OrdersInfoScreen", {
+                    navigation.navigate("HistoryInfoScreen", {
                         vehicle: item.vehicle, 
                         code: item.code, 
                         type: item.type, 

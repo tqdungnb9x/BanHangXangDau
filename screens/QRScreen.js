@@ -4,17 +4,14 @@ import axios from 'axios'
 
 import { Text, View, StyleSheet, Dimensions, Image, TouchableOpacity, } from "react-native";
 
-
 import ScreenBrightness from 'react-native-screen-brightness';
 import { useFocusEffect } from '@react-navigation/native';
-
 
 const TIME_LEFT = 60000;
 
 export const QRScreen = ({ navigation }) => {
 
   let logo = require('../assets/images/logo.jpg');
-
 
   const [QRCode, setQRCode] = useState('abc');
   const [timeLeft, setTimeLeft] = useState(TIME_LEFT)

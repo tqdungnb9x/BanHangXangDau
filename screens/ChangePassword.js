@@ -3,6 +3,7 @@ import React, { useState, createRef } from 'react';
 import { Text, View, StyleSheet, KeyboardAvoidingView, StatusBar, TextInput, Keyboard, TouchableOpacity, Alert } from "react-native";
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { useUserInfo } from '../hooks/useUserInfo'
 
 export const ChangePassword = ({ navigation }) => {
 
@@ -13,40 +14,67 @@ export const ChangePassword = ({ navigation }) => {
     const [secureNewPassword, setSecureNewPassword] = useState(true)
     const [secureConfirmNewPassword, setSecureConfirmNewPassword] = useState(true)
 
-    const changeSecureOldPassword = () =>{
+    const changeSecureOldPassword = () => {
         setSecureOldPassword(!secureOldPassword)
     }
-    const changeSecureNewPassword = () =>{
+    const changeSecureNewPassword = () => {
         setSecureNewPassword(!secureNewPassword)
     }
-    const changeSecureConfirmNewPassword = () =>{
+    const changeSecureConfirmNewPassword = () => {
         setSecureConfirmNewPassword(!secureConfirmNewPassword)
     }
 
     const passwordInputRef = createRef();
     const confirmInputRef = createRef();
 
-
+    const { changePassword } = useUserInfo();
+    const changePasswordApi = () => {
+        console.log('changePasswordApi', oldPassword);
+        changePassword(
+            oldPassword,
+            newPassword,
+            (response) => {
+                console.log("changePassword.onSuccess");
+                Alert.alert('Thành công', 'Thay đổi mật khẩu thành công',
+                    [{ text: 'Okay', onPress: () => { navigation.navigate('UserInfoScreen') } }],
+                );
+            },
+            (error) => {
+                console.log("login.onError");
+                Alert.alert('Lỗi', 'Thay đổi mật khẩu thất bại',
+                    [{ text: 'Okay', onPress: () => { navigation.navigate('UserInfoScreen') } }]
+                );
+            },
+        );
+    }
     const checkChangePassword = () => {
         if (oldPassword === '') {
             Alert.alert('Sai mật khẩu', 'Bạn nhập sai mật khẩu cũ', [{ text: 'Okay' }], {
                 cancelable: true,
             });
         }
-        if (newPassword === '') {
+        else if (newPassword === '') {
             Alert.alert('Sai mật khẩu', 'Bạn cần nhập mật khẩu mới', [{ text: 'Okay' }], {
                 cancelable: true,
             });
-
         }
-        if (newPassword === confirmNewPassword) {
-            Alert.alert('Thay đổi thành công', 'Mai mới làm', [{ text: 'Okay' }], {
-                cancelable: true,
-            });
-        } else {
+        else if (newPassword != confirmNewPassword) {
             Alert.alert('Không thành công', 'Bạn cần xác nhận đúng mật khẩu mới', [{ text: 'Okay' }], {
                 cancelable: true,
             });
+        }
+        else if (newPassword == oldPassword) {
+            Alert.alert('Không thành công', 'Mật khẩu mới phải khác mật khẩu cũ', [{ text: 'Okay' }], {
+                cancelable: true,
+            });
+        }
+        else if (oldPassword.trim().length < 8 || newPassword.trim().length < 8 || confirmNewPassword.trim().length < 8) {
+            Alert.alert('Không thành công', 'Mật khẩu phải dài 8 ký tự trở lên', [{ text: 'Okay' }], {
+                cancelable: true,
+            });
+        }
+        else {
+            changePasswordApi()
         }
     }
 
@@ -79,13 +107,13 @@ export const ChangePassword = ({ navigation }) => {
                     />
                     <TouchableOpacity onPress={changeSecureOldPassword}>
                         {secureOldPassword ? (
-                            <FontAwesome name="eye-slash" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye-slash" color="#777777" size={23} />
                         ) : (
-                            <FontAwesome name="eye" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye" color="#777777" size={23} />
                         )}
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.textFooter}>,
+                <Text style={styles.textFooter}>
                     Mật khẩu mới
                 </Text>
                 <View style={styles.action}>
@@ -94,7 +122,7 @@ export const ChangePassword = ({ navigation }) => {
                         autoCapitalize='none'
                         style={styles.input}
                         onChangeText={onNewPassword}
-                        value={onNewPassword}
+                        value={newPassword}
                         placeholder="Mật khẩu mới"
                         returnKeyType="next"
                         ref={passwordInputRef}
@@ -108,9 +136,9 @@ export const ChangePassword = ({ navigation }) => {
                     />
                     <TouchableOpacity onPress={changeSecureNewPassword}>
                         {secureNewPassword ? (
-                            <FontAwesome name="eye-slash" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye-slash" color="#777777" size={23} />
                         ) : (
-                            <FontAwesome name="eye" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye" color="#777777" size={23} />
                         )}
                     </TouchableOpacity>
                 </View>
@@ -124,7 +152,7 @@ export const ChangePassword = ({ navigation }) => {
                         autoCapitalize='none'
                         style={styles.input}
                         onChangeText={onConfirmNewPassword}
-                        value={onConfirmNewPassword}
+                        value={confirmNewPassword}
                         placeholder="Mật khẩu mới"
                         returnKeyType="next"
                         ref={confirmInputRef}
@@ -136,9 +164,9 @@ export const ChangePassword = ({ navigation }) => {
                     />
                     <TouchableOpacity onPress={changeSecureConfirmNewPassword}>
                         {secureConfirmNewPassword ? (
-                            <FontAwesome name="eye-slash" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye-slash" color="#777777" size={23} />
                         ) : (
-                            <FontAwesome name="eye" color="#0d60ae" size={23} />
+                            <FontAwesome name="eye" color="#777777" size={23} />
                         )}
                     </TouchableOpacity>
                 </View>
@@ -232,7 +260,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     textFooter: {
-        color: '#0d60ae',
+        color: '#000',
         fontSize: 20,
         fontWeight: 'bold',
         marginTop: 10,

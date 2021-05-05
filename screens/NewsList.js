@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         // marginVertical: 10,
         // marginHorizontal: 10,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        marginVertical: 5,
+        marginHorizontal: 10,
     },
 });
 

@@ -10,17 +10,19 @@ import { ChangePassword } from '../screens/ChangePassword';
 import  OrdersListScreen  from '../screens/OrdersListScreen';
 import { OrdersInfoScreen } from '../screens/OrdersInfoScreen';
 import { QRScreen } from '../screens/QRScreen';
+import HistoryListScreen from '../screens/HistoryListScreen';
+import { HistoryInfoScreen } from '../screens/HistoryInfoScreen';
 
 const Stack = createStackNavigator();
 
-export default OrdersStack = () => {
+export default HistoryStack = () => {
     return (
-        <Stack.Navigator initialRouteName="OrdersListScreen">
+        <Stack.Navigator>
             <Stack.Screen
-                name="OrdersListScreen"
-                component={OrdersListScreen}
+                name="HistoryListScreen"
+                component={HistoryListScreen}
                 options={({ navigation }) => ({
-                    headerTitle: "Đơn hàng",
+                    headerTitle: "Lịch sử đơn hàng",
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -29,23 +31,11 @@ export default OrdersStack = () => {
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                    // headerLeft: () => (
-                    //     <View/>
-                    // ),
-                    // headerRight: () => (
-                    //     <Icon.Button
-                    //         name="person-outline"
-                    //         size={25}
-                    //         color="#0d60ae"                            
-                    //         backgroundColor="#fff"
-                    //         onPress={() => navigation.navigate('UserInfoScreen')}
-                    //     />
-                    // ),
                 })}
             />
             <Stack.Screen
-                name="OrdersInfoScreen"
-                component={OrdersInfoScreen}
+                name="HistoryInfoScreen"
+                component={HistoryInfoScreen}
                 options={{
                     headerTitle: "Thông tin chi tiết",
                     headerTitleStyle: {
@@ -54,20 +44,6 @@ export default OrdersStack = () => {
                         color: '#0d60ae',
                         textAlign: 'center',
                         alignItems: 'center',
-                    },
-                }}
-            />
-            <Stack.Screen
-                name="QRScreen"
-                component={QRScreen}
-                options={{
-                    headerTitle: "Mã QR",
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                        color: '#0d60ae',
-                        textAlign: 'center',
-                        alignItems: 'center'
                     },
                 }}
             />

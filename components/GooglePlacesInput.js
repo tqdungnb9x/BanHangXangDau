@@ -12,9 +12,7 @@ import {
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const API_KEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
-import Geolocation from 'react-native-geolocation-service'
 
-navigator.geolocation = require('react-native-geolocation-service');
 
 export default class App extends React.Component {
   render() {
@@ -22,9 +20,9 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <GooglePlacesAutocomplete
           placeholder='Search'
-          onPress={(data, details = null) => {
+          onPress={(data, details) => {
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            console.log(data, details.geometry.location);
           }}
           query={{
             key: API_KEY,

@@ -7,10 +7,15 @@ import NewsList from '../screens/NewsList'
 import NewsDetail from '../screens/NewsDetail'
 import { UserInfoScreen } from '../screens/UserInfoScreen';
 import { ChangePassword } from '../screens/ChangePassword';
+import { Image } from 'react-native';
+import UserStack from './UserStack';
+import { ChangeAddress } from '../screens/ChangeAddress';
+import { ChangeEmail } from '../screens/ChangeEmail';
 
 const Stack = createStackNavigator();
 
 export default NewsStack = () => {
+    
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -38,6 +43,13 @@ export default NewsStack = () => {
                             backgroundColor="#fff"
                             onPress={() => navigation.navigate('UserInfoScreen')}
                         />
+                        // <Image.Button
+                        //     source={{uri: 'https://iupac.org/wp-content/uploads/2018/05/default-avatar-300x300.png',}}
+                        //     size={25}
+                        //     color="#0d60ae"                            
+                        //     backgroundColor="#fff"
+                        //     onPress={() => navigation.navigate('UserInfoScreen')}
+                        // />
                     ),
                 })}
             />
@@ -55,11 +67,13 @@ export default NewsStack = () => {
                     },
                 }}
             />
+            
             <Stack.Screen
                 name="UserInfoScreen"
                 component={UserInfoScreen}
-                options={{
+                options={({ navigation }) => ({
                     headerTitle: "Thông tin cá nhân",
+                    // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -67,7 +81,8 @@ export default NewsStack = () => {
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                }}
+                    
+                })}
             />
             <Stack.Screen
                 name="ChangePassword"
@@ -79,11 +94,39 @@ export default NewsStack = () => {
                         fontSize: 20,
                         color: '#0d60ae',
                         textAlign: 'center',
+                        alignItems: 'center',
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="ChangeAddress"
+                component={ChangeAddress}
+                options={{
+                    headerTitle: "Đổi địa chỉ",
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#0d60ae',
+                        textAlign: 'center',
                         alignItems: 'center'
                     },
                 }}
             />
-
+            <Stack.Screen
+                name="ChangeEmail"
+                component={ChangeEmail}
+                options={{
+                    headerTitle: "Đổi email",
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#0d60ae',
+                        textAlign: 'center',
+                        alignItems: 'center'
+                    },
+                }}
+            />
+            
         </Stack.Navigator>
     );
 };

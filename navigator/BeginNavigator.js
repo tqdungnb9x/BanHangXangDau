@@ -12,6 +12,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeTab from './HomeTab'
 import { View } from 'react-native'
+import { UserInfoScreen } from '../screens/UserInfoScreen'
+import { UserInfoTest } from '../screens/UserInfoTest'
 
 const Stack = createStackNavigator();
 
@@ -30,7 +32,7 @@ export const BeginNavigator = () => {
     useEffect(() => {
         setTimeout(() => {
             setSplash(false)
-        }, 2500);
+        }, 200);
     }, []);
     return (
         <View style={{ flex: 1 }}>

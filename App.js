@@ -20,6 +20,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { HomeStack } from './navigator/NewsStack';
 import { ChangePassword } from './screens/ChangePassword';
 import OrdersStack from './navigator/OrdersStack';
+import 'react-native-gesture-handler';
 
 
 const { store, persistor } = configStored();

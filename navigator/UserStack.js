@@ -3,24 +3,22 @@ import { View, Text, StyleSheet } from 'react-native'
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import NewsList from '../screens/NewsList'
-import NewsDetail from '../screens/NewsDetail'
 import { UserInfoScreen } from '../screens/UserInfoScreen';
+
+import { ChangeAddress } from '../screens/ChangeAddress';
 import { ChangePassword } from '../screens/ChangePassword';
-import  OrdersListScreen  from '../screens/OrdersListScreen';
-import { OrdersInfoScreen } from '../screens/OrdersInfoScreen';
-import { QRScreen } from '../screens/QRScreen';
+import { ChangeEmail } from '../screens/ChangeEmail';
 
 const Stack = createStackNavigator();
 
-export default OrdersStack = () => {
+export default UserStack = () => {
     return (
-        <Stack.Navigator initialRouteName="OrdersListScreen">
+        <Stack.Navigator initialRouteName="UserInfoScreen">
             <Stack.Screen
-                name="OrdersListScreen"
-                component={OrdersListScreen}
+                name="UserInfoScreen"
+                component={UserInfoScreen}
                 options={({ navigation }) => ({
-                    headerTitle: "Đơn hàng",
+                    headerTitle: "Thông tin cá nhân",
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -29,25 +27,14 @@ export default OrdersStack = () => {
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                    // headerLeft: () => (
-                    //     <View/>
-                    // ),
-                    // headerRight: () => (
-                    //     <Icon.Button
-                    //         name="person-outline"
-                    //         size={25}
-                    //         color="#0d60ae"                            
-                    //         backgroundColor="#fff"
-                    //         onPress={() => navigation.navigate('UserInfoScreen')}
-                    //     />
-                    // ),
+                    
                 })}
             />
             <Stack.Screen
-                name="OrdersInfoScreen"
-                component={OrdersInfoScreen}
+                name="ChangePassword"
+                component={ChangePassword}
                 options={{
-                    headerTitle: "Thông tin chi tiết",
+                    headerTitle: "Đổi mật khẩu",
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -58,10 +45,24 @@ export default OrdersStack = () => {
                 }}
             />
             <Stack.Screen
-                name="QRScreen"
-                component={QRScreen}
+                name="ChangeAddress"
+                component={ChangeAddress}
                 options={{
-                    headerTitle: "Mã QR",
+                    headerTitle: "Đổi địa chỉ",
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#0d60ae',
+                        textAlign: 'center',
+                        alignItems: 'center'
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="ChangeEmail"
+                component={ChangeEmail}
+                options={{
+                    headerTitle: "Đổi email",
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,

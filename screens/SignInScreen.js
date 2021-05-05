@@ -36,14 +36,7 @@ export const SignInScreen = () => {
       user,
       password,
       (response) => {
-        console.log("login.onSuccess");
-        console.log(response.message)
-        // console.log('response', response);
-        console.log(response.token);
-        getInfo((response) => {
-          console.log('login');
-          console.log(' user info:', response);
-        });
+        getInfo();
         setModalVisible(false)
       },
       (error) => {
@@ -69,7 +62,7 @@ export const SignInScreen = () => {
     } else {
       console.log("checkLoginField");
       setModalVisible(true);
-      {modalVisible ? console.log("1"):console.log("2")}
+      // console.log(modalVisible);
       loginApi();
       // setTimeout(() => {
       //   if(auth.loggedIn==false){
@@ -95,7 +88,7 @@ export const SignInScreen = () => {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            Alert.alert("Kết nối thật bại", "Vui lòng đăng nhập lại");
             setModalVisible(false);
           }}
         >
