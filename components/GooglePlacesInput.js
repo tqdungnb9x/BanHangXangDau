@@ -12,8 +12,11 @@ import {
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const API_KEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
 =======
+=======
+>>>>>>> 9e2689b1a0a70978cc652107fe9aab6d65a1565b
 const API_KEY = 'TRUMP_KEY'
 import Geolocation from 'react-native-geolocation-service'
 >>>>>>> 9e2689b1a0a70978cc652107fe9aab6d65a1565b
