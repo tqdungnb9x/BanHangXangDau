@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { Provider } from 'react-redux';
-import {PersistGate} from 'redux-persist/lib/integration/react';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import { BeginNavigator } from './navigator/BeginNavigator'
 import HomeTab from './navigator/HomeTab';
@@ -21,24 +21,27 @@ import { HomeStack } from './navigator/NewsStack';
 import { ChangePassword } from './screens/ChangePassword';
 import OrdersStack from './navigator/OrdersStack';
 import 'react-native-gesture-handler';
+import messaging from '@react-native-firebase/messaging';
+
 
 
 const { store, persistor } = configStored();
-export {store};
+export { store };
 
 
 const App = () => {
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
 
-      {/* <NavigationContainer>
+        {/* <NavigationContainer>
 
       <OrdersStack/>
 
       </NavigationContainer> */}
 
-      <BeginNavigator/>
+        <BeginNavigator />
 
       </PersistGate>
 

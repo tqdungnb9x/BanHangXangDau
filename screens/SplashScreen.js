@@ -30,7 +30,6 @@ export const SplashScreen = () => {
           />
 
         </View>
-        <LinearGradient colors={['#f68026', '#fdf26a']} >
 
         <Text
           style={{
@@ -43,7 +42,6 @@ export const SplashScreen = () => {
         >
           Ứng dụng bán hàng toàn quốc dành cho tài xế
         </Text>
-        </LinearGradient>
     </View>
   );
 };

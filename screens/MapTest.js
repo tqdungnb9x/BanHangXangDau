@@ -24,7 +24,6 @@ import MapView, {
 } from "react-native-maps";
 import haversine from "haversine";
 import Geolocation from 'react-native-geolocation-service'
-import GooglePlacesInput from "../components/GooglePlacesInput";
 
 // const LATITUDE = 29.95539;
 // const LONGITUDE = 78.07513;

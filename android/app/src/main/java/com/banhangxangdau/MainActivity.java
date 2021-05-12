@@ -4,6 +4,8 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -23,5 +25,11 @@ public class MainActivity extends ReactActivity {
       }
     };
   }
-
+  // @Override
+  // protected List<ReactPackage> getPackages() {
+  //   return Arrays.asList(
+  //     new MainReactPackage(),
+  //     new ReactNativeFirebaseMessagingPackage(),
+  //   );
+  // }
 }

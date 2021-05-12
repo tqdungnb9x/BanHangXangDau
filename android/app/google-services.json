@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "145591466325",
+    "project_id": "banhangxangdau-d3e91",
+    "storage_bucket": "banhangxangdau-d3e91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145591466325:android:b16a9e76c56d4fcae197dc",
+        "android_client_info": {
+          "package_name": "com.banhangxangdau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145591466325-6ca5blll3c6hre0dcqb7913rrf366tbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr95hSUEsC2ZIAqkvslBpvihGeX970WwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145591466325-6ca5blll3c6hre0dcqb7913rrf366tbl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

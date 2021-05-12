@@ -15,20 +15,24 @@ import {
   Platform,
   PermissionsAndroid,
   SafeAreaView,
-  Image, Dimensions
+  Image,
+  Dimensions,
+  Linking
 } from "react-native";
 import MapView, {
   Marker,
   AnimatedRegion,
   Polyline,
-  PROVIDER_GOOGLE
+  PROVIDER_GOOGLE,
+  Callout
 } from "react-native-maps";
 import haversine from "haversine";
 import Geolocation from 'react-native-geolocation-service'
-import GooglePlacesInput from "../components/GooglePlacesInput";
 import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { log } from "react-native-reanimated";
+import axios from 'axios'
+
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -49,6 +53,7 @@ const TEST2 = {
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
 
 class MapScreen extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -72,11 +77,45 @@ class MapScreen extends React.Component {
       origin: {
         latitude: null,
         longitude: null,
-      }
+      },
+      details: {
+        name: '',
+        address: '',
+        phone: '',
+        time: '',
+        url: '',
+        latitude: 0,
+      },
+      maps: [{ "address": "Đường Láng, Tổ 13, Phường Láng Thượng, Quận Đống Đa, Hà Nội, Việt Nam", "email": "chxd51.kv1@petrolimex.com.vn", "latitude": 21.020601, "longitude": 105.801443, "name": "Cửa hàng xăng dầu số 37 - Công ty Xăng dầu Khu vực I", "phone": "(024) 38626792", "province": "Hà Nội", "time": "Giờ bán hàng: 5:00 SA - 23:00 CH", "url": "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=21.020601,105.801443" }, { address: "Số 484 phố Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội, Việt Nam", email: "chxd51.kv1@petrolimex.com.vn", latitude: 20.997778, longitude: 105.867097, name: "Cửa hàng xăng dầu số 51 - Công ty Xăng dầu Khu vực I", phone: "(024) 38626792 ", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH    ", "url": "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.997778,105.867097" }, { address: "Số 32 phố Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd52.kv1@petrolimex.com.vn", latitude: 20.983521, longitude: 105.846869, name: "Cửa hàng xăng dầu số 52 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.983521,105.846869" }, { address: "Số 121 phố Định Công, Phường Định Công, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd55.kv1@petrolimex.com.vn", latitude: 20.9842, longitude: 105.838238, name: "Cửa hàng xăng dầu số 55 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.9842,105.838238" }, { address: "Km06 đường Giải Phóng, Phường Giáp Bát, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd53.kv1@petrolimex.com.vn", latitude: 20.985253, longitude: 105.84119, name: "Cửa hàng xăng dầu số 53 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 24:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.985253,105.84119" }],
     };
   }
-
+  getMaps() {
+    axios.get("https://0vd92.sse.codesandbox.io/maps/getMaps").then(function (response) {
+      // this.setState({ maps: response.data.maps })
+      console.log("1: ", response.data.maps);
+      console.log(this.state);
+      console.log(typeof (this.state.maps))
+      console.log("response.data.maps", response.data.maps)
+    }).catch(function (error) {
+      console.log(2);
+      if (error == "Error: Network Error") {
+        Alert.alert(
+          "Lỗi kết nối mạng",
+          "Vui lòng kiểm tra kết nối mạng",
+          [
+            { text: "Thử lại", onPress: () => console.log("thử lại") },
+            {
+              text: "Hủy",
+              onPress: () => console.log("Hủy"),
+              style: "cancel"
+            },
+          ]
+        );
+      }
+    })
+  }
   componentDidMount() {
+    this.getMaps();
     const { coordinate } = this.state;
 
     this.watchID = Geolocation.watchPosition(
@@ -104,8 +143,6 @@ class MapScreen extends React.Component {
           latitude,
           longitude,
           routeCoordinates: routeCoordinates.concat([newCoordinate]),
-          // distanceTravelled:
-          //   distanceTravelled + this.calcDistance(newCoordinate),
           prevLatLng: newCoordinate
         });
       },
@@ -133,11 +170,6 @@ class MapScreen extends React.Component {
     longitudeDelta: LONGITUDE_DELTA
   });
 
-  calcDistance = newLatLng => {
-    const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
-  };
-
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -148,19 +180,62 @@ class MapScreen extends React.Component {
           followUserLocation={true}
           loadingEnabled={false}
           region={this.getMapRegion()}
-          showsMyLocationButton={true}
+          showsMyLocationButton={false}
           showsCompass={true}
         // showsTraffic={true}
         >
-          {(this.state.destination.latitude != null && this.state.destination.longitude != null) ? (
+
+          {this.state.maps.map(marker => (
             <Marker.Animated
-              coordinate={this.state.destination}
+              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+              title={marker.name}
+              key={marker.name}
+              onPress={() => {
+                console.log(this.state.details)
+                this.setState({
+                  origin: { latitude: this.state.latitude, longitude: this.state.longitude },
+                  destination: { latitude: marker.latitude, longitude: marker.longitude }
+                })
+              }}
+              onCalloutPress={() => {
+                Linking.openURL(marker.url)
+              }}
             >
               <Image
                 source={require('../assets/images/petrolimex-marker.png')}
                 style={{ width: 45, height: 45 }}
                 resizeMode="contain"
               />
+              <Callout style={styles.callout}>
+                <Text style={{ fontWeight: 'bold', fontSize: 12 }}>{marker.name}</Text>
+                <Text style={{ fontSize: 12 }}>Địa chỉ: {marker.address}</Text>
+                <Text style={{ fontSize: 12 }}>Điện thoại: {marker.phone}</Text>
+                <Text style={{ fontSize: 12 }}>{marker.time}</Text>
+                <Text style={{ fontSize: 15, color: 'blue', textDecorationLine: 'underline', textAlign: 'center' }}>Ấn để chỉ đường</Text>
+              </Callout>
+
+            </Marker.Animated>
+          ))}
+          {(this.state.details.name != null && this.state.details.latitude==this.state.destination.latitude) ? (
+            <Marker.Animated
+              coordinate={this.state.destination}
+              title={this.state.details.name}
+              key={this.state.details.name}
+              onCalloutPress={() => {
+                Linking.openURL(this.state.details.url)
+              }}
+            >
+              <Image
+                source={require('../assets/images/petrolimex-marker.png')}
+                style={{ width: 45, height: 45 }}
+                resizeMode="contain"
+              />
+              <Callout style={styles.callout}>
+                <Text style={{ fontWeight: 'bold', fontSize: 12 }}>{this.state.details.name}</Text>
+                <Text style={{ fontSize: 12 }}>Địa chỉ: {this.state.details.address}</Text>
+                <Text style={{ fontSize: 12 }}>Điện thoại: {this.state.details.phone}</Text>
+                <Text style={{ fontSize: 15, color: 'blue', textDecorationLine: 'underline', textAlign: 'center' }}>Ấn để chỉ đường</Text>
+              </Callout>
             </Marker.Animated>
           ) : (
             <View />
@@ -173,34 +248,24 @@ class MapScreen extends React.Component {
             coordinate={this.state.coordinate}
             title='Vị trí của bạn'
           />
+
           {this.state.origin.latitude != null ? (
             <MapViewDirections
               language='vi'
               // origin={this.state.latitude, this.state.longitude}
               // origin={this.state.coordinate}
-              origin={this.state.coordinate}
+              origin={this.state.origin}
               destination={this.state.destination}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={5}
               strokeColor="#669df7"
               timePrecision="now"
               onReady={result => {
-                console.log(`Distance: ${result.distance} km`)
-                console.log(`Duration: ${result.duration} min.`)
-                console.log("origin MapView:",  this.state.origin)
-                console.log("destination MapView:", this.state.destination )
                 this.setState({
                   distanceTravelled: result.distance,
                   timeTravelled: result.duration,
                 });
-                // this.marker.fitToCoordinates(result.coordinates, {
-                //   edgePadding: {
-                //     right: (width / 20),
-                //     bottom: (height / 20),
-                //     left: (width / 20),
-                //     top: (height / 20),
-                //   }
-                // });
+
               }}
               onError={(errorMessage) => {
                 console.log(errorMessage);
@@ -219,23 +284,24 @@ class MapScreen extends React.Component {
             placeholder='Tìm kiếm'
             onPress={(data, details) => {
               // 'details' is provided when fetchDetails = true
+              console.log(details)
               this.setState({
+                details: {
+                  name: details.name,
+                  address: details.formatted_address,
+                  phone: details.formatted_phone_number,
+                  url: details.url,
+                  latitude: details.geometry.location.lat,
+                },
                 destination: {
                   latitude: details.geometry.location.lat,
                   longitude: details.geometry.location.lng
                 },
                 origin: {
-                latitude: this.state.coordinate.latitude,
-                longitude: this.state.coordinate.longitude
-              }
+                  latitude: this.state.latitude,
+                  longitude: this.state.longitude
+                }
               });
-              // this.setState(prevState => {
-              //   let destination = Object.assign({}, prevState.destination);    
-              //   destination = details.geometry.location;                        
-              //   return { destination };
-              // })
-              console.log("destination: ", this.state.destination)
-              console.log("origin: ", this.state.origin)
             }}
             query={{
               key: GOOGLE_MAPS_APIKEY,
@@ -247,21 +313,13 @@ class MapScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={[styles.bubble, styles.button]} onPress={() => {
             console.log("destination 1 : ", this.state.destination)
-            this.setState({
-              origin: {
-                latitude: this.state.coordinate.latitude,
-                longitude: this.state.coordinate.longitude
-              }
-            })
-            console.log("origin 1 : ", this.state.origin)
-
           }}>
             <Text style={styles.bottomBarContent}>
-              {parseFloat(this.state.distanceTravelled).toFixed(2)} km trong {parseFloat(this.state.timeTravelled).toFixed(2)} phút
-              Tìm đường
+              Quãng đường {parseFloat(this.state.distanceTravelled).toFixed(2)} km trong {parseFloat(this.state.timeTravelled).toFixed(2)} phút
             </Text>
           </TouchableOpacity>
         </View>
+
       </SafeAreaView>
     );
   }
@@ -313,6 +371,18 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: 'transparent'
   },
+  callout: {
+    width: width * 0.7,
+    paddingBottom: 10
+  },
+  directionButton: {
+    width: 150,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row',
+  }
 });
 
 export default MapScreen;

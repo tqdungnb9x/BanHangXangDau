@@ -33,15 +33,37 @@ export default NewsList = ({ navigation }) => {
     const [newsData, setNewsData] = useState([])
     const [selectedId, setSelectedId] = useState("https://www.petrolimex.com.vn/nd/bao-chi-viet-ve-petrolimex-va-xang-dau/xam-pham-nhan-hieu-petrolimex-dang-bao-dong.html");
 
+    const getMaps = () => {
+        axios.get("https://0vd92.sse.codesandbox.io/maps/getMaps").then(function (response) {
+            console.log(response.data.maps);
+            console.log(2)
+        }).catch(function (error) {
+            console.log(3)
+            console.log(error)
+            if (error == "Error: Network Error") {
+                Alert.alert(
+                    "Lỗi kết nối mạng",
+                    "Vui lòng kiểm tra kết nối mạng",
+                    [
+                        { text: "Thử lại", onPress: () => console.log("thử lại") },
+                        {
+                            text: "Hủy",
+                            onPress: () => console.log("Hủy"),
+                            style: "cancel"
+                        },
+                    ]
+                );
+            }
+        })
+    }
     const getNews = () => {
         axios.get("https://0vd92.sse.codesandbox.io/news/getNews").then(function (response) {
-            setNewsData(response.data.news);
-            console.log(newsData)
+            setNewsData(response.data.news);    
             setRefreshing(false)
         }).catch(function (error) {
             setRefreshing(false)
             console.log(error)
-            console.log(typeof(error));
+            console.log(typeof (error));
             console.log(error.toString());
             if (error == "Error: Network Error") {
                 Alert.alert(
@@ -61,8 +83,7 @@ export default NewsList = ({ navigation }) => {
     }
 
     useEffect(() => {
-        getNews()
-        console.log(1);
+        getNews();
     }, [refreshing])
 
     const renderItem = ({ item }) => {
