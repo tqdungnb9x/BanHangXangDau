@@ -1,12 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+/* eslint-disable prettier/prettier */
+// /* eslint-disable prettier/prettier */
+// /**
+//  * Sample React Native App
+//  * https://github.com/facebook/react-native
+//  *
+//  * @format
+//  * @flow
+//  */
 
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -17,20 +19,20 @@ import {
   SafeAreaView,
   Image,
   Dimensions,
-  Linking
-} from "react-native";
+  Linking,
+  Alert,
+} from 'react-native';
 import MapView, {
   Marker,
   AnimatedRegion,
-  Polyline,
   PROVIDER_GOOGLE,
   Callout
-} from "react-native-maps";
-import haversine from "haversine";
+} from 'react-native-maps';
+import haversine from 'haversine';
 import Geolocation from 'react-native-geolocation-service'
 import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { log } from "react-native-reanimated";
+import { log } from 'react-native-reanimated';
 import axios from 'axios'
 
 
@@ -51,6 +53,29 @@ const TEST2 = {
   longitude: 105.77721532546406,
 }
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
+
+async function requestLocationPermission() {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Yêu cầu truy cập vị trí',
+        message:
+          'Cho phép ứng dụng truy cập vị trí?',
+        buttonNeutral: 'Để sau',
+        buttonNegative: 'Hủy bỏ',
+        buttonPositive: 'Đồng ý'
+      }
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('You can use the camera');
+    } else {
+      console.log('Camera permission denied');
+    }
+  } catch (err) {
+    console.warn(err);
+  }
+};
 
 class MapScreen extends React.Component {
 
@@ -86,36 +111,39 @@ class MapScreen extends React.Component {
         url: '',
         latitude: 0,
       },
-      maps: [{ "address": "Đường Láng, Tổ 13, Phường Láng Thượng, Quận Đống Đa, Hà Nội, Việt Nam", "email": "chxd51.kv1@petrolimex.com.vn", "latitude": 21.020601, "longitude": 105.801443, "name": "Cửa hàng xăng dầu số 37 - Công ty Xăng dầu Khu vực I", "phone": "(024) 38626792", "province": "Hà Nội", "time": "Giờ bán hàng: 5:00 SA - 23:00 CH", "url": "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=21.020601,105.801443" }, { address: "Số 484 phố Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội, Việt Nam", email: "chxd51.kv1@petrolimex.com.vn", latitude: 20.997778, longitude: 105.867097, name: "Cửa hàng xăng dầu số 51 - Công ty Xăng dầu Khu vực I", phone: "(024) 38626792 ", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH    ", "url": "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.997778,105.867097" }, { address: "Số 32 phố Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd52.kv1@petrolimex.com.vn", latitude: 20.983521, longitude: 105.846869, name: "Cửa hàng xăng dầu số 52 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.983521,105.846869" }, { address: "Số 121 phố Định Công, Phường Định Công, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd55.kv1@petrolimex.com.vn", latitude: 20.9842, longitude: 105.838238, name: "Cửa hàng xăng dầu số 55 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 23:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.9842,105.838238" }, { address: "Km06 đường Giải Phóng, Phường Giáp Bát, Quận Hoàng Mai, Hà Nội, Việt Nam", email: "chxd53.kv1@petrolimex.com.vn", latitude: 20.985253, longitude: 105.84119, name: "Cửa hàng xăng dầu số 53 - Công ty Xăng dầu Khu vực I", phone: "(024) 38641224", province: "Hà Nội", time: "Giờ bán hàng: 5:00 SA - 24:00 CH", url: "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.985253,105.84119" }],
+      maps: [{ 'address': 'Đường Láng, Tổ 13, Phường Láng Thượng, Quận Đống Đa, Hà Nội, Việt Nam', 'email': 'chxd51.kv1@petrolimex.com.vn', 'latitude': 21.020601, 'longitude': 105.801443, 'name': 'Cửa hàng xăng dầu số 37 - Công ty Xăng dầu Khu vực I', 'phone': '(024) 38626792', 'province': 'Hà Nội', 'time': 'Giờ bán hàng: 5:00 SA - 23:00 CH', 'url': 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=21.020601,105.801443' }, { address: 'Số 484 phố Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội, Việt Nam', email: 'chxd51.kv1@petrolimex.com.vn', latitude: 20.997778, longitude: 105.867097, name: 'Cửa hàng xăng dầu số 51 - Công ty Xăng dầu Khu vực I', phone: '(024) 38626792 ', province: 'Hà Nội', time: 'Giờ bán hàng: 5:00 SA - 23:00 CH    ', 'url': 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.997778,105.867097' }, { address: 'Số 32 phố Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Hà Nội, Việt Nam', email: 'chxd52.kv1@petrolimex.com.vn', latitude: 20.983521, longitude: 105.846869, name: 'Cửa hàng xăng dầu số 52 - Công ty Xăng dầu Khu vực I', phone: '(024) 38641224', province: 'Hà Nội', time: 'Giờ bán hàng: 5:00 SA - 23:00 CH', url: 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.983521,105.846869' }, { address: 'Số 121 phố Định Công, Phường Định Công, Quận Hoàng Mai, Hà Nội, Việt Nam', email: 'chxd55.kv1@petrolimex.com.vn', latitude: 20.9842, longitude: 105.838238, name: 'Cửa hàng xăng dầu số 55 - Công ty Xăng dầu Khu vực I', phone: '(024) 38641224', province: 'Hà Nội', time: 'Giờ bán hàng: 5:00 SA - 23:00 CH', url: 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.9842,105.838238' }, { address: 'Km06 đường Giải Phóng, Phường Giáp Bát, Quận Hoàng Mai, Hà Nội, Việt Nam', email: 'chxd53.kv1@petrolimex.com.vn', latitude: 20.985253, longitude: 105.84119, name: 'Cửa hàng xăng dầu số 53 - Công ty Xăng dầu Khu vực I', phone: '(024) 38641224', province: 'Hà Nội', time: 'Giờ bán hàng: 5:00 SA - 24:00 CH', url: 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.985253,105.84119' }],
     };
   }
-  getMaps() {
-    axios.get("https://0vd92.sse.codesandbox.io/maps/getMaps").then(function (response) {
-      // this.setState({ maps: response.data.maps })
-      console.log("1: ", response.data.maps);
-      console.log(this.state);
-      console.log(typeof (this.state.maps))
-      console.log("response.data.maps", response.data.maps)
-    }).catch(function (error) {
-      console.log(2);
-      if (error == "Error: Network Error") {
-        Alert.alert(
-          "Lỗi kết nối mạng",
-          "Vui lòng kiểm tra kết nối mạng",
-          [
-            { text: "Thử lại", onPress: () => console.log("thử lại") },
-            {
-              text: "Hủy",
-              onPress: () => console.log("Hủy"),
-              style: "cancel"
-            },
-          ]
-        );
-      }
-    })
-  }
+  // async getMaps() {
+  //   axios.get('https://xgc5h.sse.codesandbox.io/maps/getMaps').then(function (response) {
+  //     let array = new Array();
+  //     array = response.data.maps;
+  //     this.setState({ maps: array })
+  //     console.log('1: ', response.data.maps);
+  //   }).catch(function (error) {
+  //     console.log(2, error);
+  //     console.log(2);
+
+  //     if (error == 'Error: Network Error') {
+  //       Alert.alert(
+  //         'Lỗi kết nối mạng',
+  //         'Vui lòng kiểm tra kết nối mạng',
+  //         [
+  //           { text: 'Thử lại', onPress: () => console.log('thử lại') },
+  //           {
+  //             text: 'Hủy',
+  //             onPress: () => console.log('Hủy'),
+  //             style: 'cancel'
+  //           },
+  //         ]
+  //       );
+  //     }
+  //   })
+  // }
+
   componentDidMount() {
-    this.getMaps();
+    requestLocationPermission();
+    // this.getMaps();
     const { coordinate } = this.state;
 
     this.watchID = Geolocation.watchPosition(
@@ -128,7 +156,7 @@ class MapScreen extends React.Component {
           longitude
         };
 
-        if (Platform.OS === "android") {
+        if (Platform.OS === 'android') {
           if (this.marker) {
             this.marker.animateMarkerToCoordinate(
               newCoordinate,
@@ -157,6 +185,9 @@ class MapScreen extends React.Component {
         forceRequestLocation: true
       }
     );
+  }
+  componentDidUpdate() {
+    requestLocationPermission;
   }
 
   componentWillUnmount() {
@@ -216,7 +247,7 @@ class MapScreen extends React.Component {
 
             </Marker.Animated>
           ))}
-          {(this.state.details.name != null && this.state.details.latitude==this.state.destination.latitude) ? (
+          {(this.state.details.name != null && this.state.details.latitude == this.state.destination.latitude) ? (
             <Marker.Animated
               coordinate={this.state.destination}
               title={this.state.details.name}
@@ -282,9 +313,22 @@ class MapScreen extends React.Component {
           <GooglePlacesAutocomplete
             fetchDetails={true}
             placeholder='Tìm kiếm'
+            onFail={(error) => {
+              console.log(error);
+            }}
+            onNotFound={() => {
+              Alert.alert(
+                'Không có kết quả',
+                'Vui lòng tìm kiếm lại',
+                [
+                  { text: 'OK', onPress: () => console.log('thử lại') },
+                  
+                ]
+              );
+            }}
             onPress={(data, details) => {
               // 'details' is provided when fetchDetails = true
-              console.log(details)
+              console.log('search ', details.name)
               this.setState({
                 details: {
                   name: details.name,
@@ -311,9 +355,7 @@ class MapScreen extends React.Component {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.bubble, styles.button]} onPress={() => {
-            console.log("destination 1 : ", this.state.destination)
-          }}>
+          <TouchableOpacity style={[styles.bubble, styles.button]} >
             <Text style={styles.bottomBarContent}>
               Quãng đường {parseFloat(this.state.distanceTravelled).toFixed(2)} km trong {parseFloat(this.state.timeTravelled).toFixed(2)} phút
             </Text>
@@ -328,8 +370,8 @@ class MapScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
-    alignItems: "center"
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   map: {
     position: 'absolute',
@@ -341,25 +383,25 @@ const styles = StyleSheet.create({
   },
   bubble: {
     flex: 1,
-    backgroundColor: "rgba(255,255,255,0.7)",
+    backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20
   },
   latlng: {
     width: 200,
-    alignItems: "stretch"
+    alignItems: 'stretch'
   },
   button: {
     width: 80,
     paddingHorizontal: 12,
-    alignItems: "center",
+    alignItems: 'center',
     marginHorizontal: 10
   },
   buttonContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginVertical: 20,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent'
   },
   search: {
     position: 'absolute',

@@ -10,7 +10,7 @@ import MapScreen from '../screens/MapScreen'
 import { BillListScreen } from '../screens/OrdersListScreen'
 import { HistoryScreen } from '../screens/HistoryScreen'
 import NewsStack from './NewsStack'
-import { NotificationScreen } from '../screens/NotificationScreen'
+import  NotificationScreen  from '../screens/NotificationScreen'
 
 import { useAuth } from '../hooks/useAuth'
 import MapTest from "../screens/MapTest";
@@ -27,7 +27,7 @@ const Tab = createBottomTabNavigator();
 
 
 
-export default function HomeTab({ navigation, route }) {
+export default function HomeTab(props) {
   function NewsStackVisibility(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? "";
 
@@ -69,7 +69,7 @@ export default function HomeTab({ navigation, route }) {
     <NavigationContainer>
       {
         auth.loggedIn ? (
-          <Tab.Navigator initialRouteName="NewsScreen" activeColor="#0d60ae" inactiveColor="#eae9e9" shifting={true} >
+          <Tab.Navigator initialRouteName={props.initialRouteName} activeColor="#0d60ae" inactiveColor="#eae9e9" shifting={true} >
             <Tab.Screen
               name="NewsScreen"
               component={NewsStack}
@@ -116,7 +116,7 @@ export default function HomeTab({ navigation, route }) {
               }}
             />
             <Tab.Screen
-              name="HistoryScreen"
+              name="HistoryStack"
               component={HistoryStack}
               options={{
                 // tabBarVisible: ((route) => {

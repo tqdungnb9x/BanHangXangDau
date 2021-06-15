@@ -26,8 +26,6 @@ function Item({ item, onPress, backgroundColor, textColor }) {
                         flexDirection: 'column',
                         width: width_icon,
                         height: width_icon,
-                        backgroundColor: 'red'
-
                     }}
                     maskElement={
                         <View
@@ -52,15 +50,20 @@ function Item({ item, onPress, backgroundColor, textColor }) {
                 </Text>
                 <Text style={styles.date}>{item.date}</Text>
                 <Text style={{ fontWeight: "bold", fontSize: 12, color: 'green' }}>☐ {item.status}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 12, color: 'black' }}>Đơn </Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 12, color: 'black' }}>{item.type} </Text>
+                    <Text style={{ fontSize: 12, color: 'black' }}>có số lượng </Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 12, color: 'black' }}>{item.totalQuantity} </Text>
+                    <Text style={{ fontSize: 12, color: 'black' }}>lít</Text>
+
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 12, color: 'black' }}>Biển số xe  </Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 12, color: 'black' }}>{item.vehicle}</Text>
+                </View>
 
             </View>
-            <View style={{ marginLeft: "auto", }}>
-                <Text style={{ fontSize: 10, color: 'black' }}>Loại đơn:</Text>
-                <Text style={{ fontWeight: "bold", fontSize: 15, color: 'black' }}>{item.type}</Text>
-                <Text style={{ fontSize: 10, color: 'black' }}>Phương tiện:</Text>
-                <Text style={{ fontWeight: "bold", fontSize: 15, color: 'black' }}>{item.vehicle}</Text>
-            </View>
-
         </TouchableOpacity>
     );
 }
@@ -109,12 +112,12 @@ export default OrdersListScreen = ({ navigation }) => {
                 onPress={() => {
                     console.log(item);
                     navigation.navigate("OrdersInfoScreen", {
-                        vehicle: item.vehicle, 
-                        code: item.code, 
-                        type: item.type, 
-                        status: item.status, 
-                        date: item.date, 
-                        receiver: item.receiver, 
+                        vehicle: item.vehicle,
+                        code: item.code,
+                        type: item.type,
+                        status: item.status,
+                        date: item.date,
+                        receiver: item.receiver,
                         totalQuantity: item.totalQuantity
                     })
                 }}
@@ -187,24 +190,17 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     item: {
-        elevation: 10,
         flexDirection: "row",
         marginHorizontal: 10,
-        marginVertical: 5,
+        paddingVertical: 5,
         paddingRight: 5,
-        borderRadius: 10,
         backgroundColor: "#FFF",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        }
-
+        borderBottomWidth: 1,
+        borderBottomColor: "#0d60ae",
     },
     date: {
         fontSize: 10,
         color: "grey",
-        marginBottom: 4,
     }
 }
 );

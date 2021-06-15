@@ -1,5 +1,5 @@
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
-import { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -58,7 +58,7 @@ export const UserInfoScreen = ({ navigation }) => {
             );
           },
           (error) => {
-            console.log("changeavatar.onError");
+            console.log('changeavatar.onError');
             Alert.alert('Lỗi', 'Thay đổi ảnh đại diện thất bại',
               [{ text: 'Okay', }]
             );

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar, Image, RefreshControl, View, Alert } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -30,35 +32,15 @@ function Item({ item, onPress, backgroundColor, textColor }) {
 export default NewsList = ({ navigation }) => {
 
     const [refreshing, setRefreshing] = React.useState(false);
-    const [newsData, setNewsData] = useState([])
+    const [newsData, setNewsData] = useState([]);
     const [selectedId, setSelectedId] = useState("https://www.petrolimex.com.vn/nd/bao-chi-viet-ve-petrolimex-va-xang-dau/xam-pham-nhan-hieu-petrolimex-dang-bao-dong.html");
 
-    const getMaps = () => {
-        axios.get("https://0vd92.sse.codesandbox.io/maps/getMaps").then(function (response) {
-            console.log(response.data.maps);
-            console.log(2)
-        }).catch(function (error) {
-            console.log(3)
-            console.log(error)
-            if (error == "Error: Network Error") {
-                Alert.alert(
-                    "Lỗi kết nối mạng",
-                    "Vui lòng kiểm tra kết nối mạng",
-                    [
-                        { text: "Thử lại", onPress: () => console.log("thử lại") },
-                        {
-                            text: "Hủy",
-                            onPress: () => console.log("Hủy"),
-                            style: "cancel"
-                        },
-                    ]
-                );
-            }
-        })
-    }
     const getNews = () => {
-        axios.get("https://0vd92.sse.codesandbox.io/news/getNews").then(function (response) {
-            setNewsData(response.data.news);    
+        axios.get("https://xgc5h.sse.codesandbox.io/news/getNews").then(function (response) {            
+            setNewsData(response.data.news.sort(function (obj1, obj2) {
+                // Ascending: first id less than the previous
+                return obj2.title - obj1.title;
+            }));
             setRefreshing(false)
         }).catch(function (error) {
             setRefreshing(false)
@@ -81,7 +63,6 @@ export default NewsList = ({ navigation }) => {
             }
         })
     }
-
     useEffect(() => {
         getNews();
     }, [refreshing])
@@ -115,14 +96,13 @@ export default NewsList = ({ navigation }) => {
                 <FlatList
                     data={newsData}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.uri}
+                    keyExtractor={(item) => item.title}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={() => {
                                 setRefreshing(true)
-                            }
-                            }
+                            }}
                         />
                     }
                 />

@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Avatar, ListItem } from 'react-native-elements';
-import { Text, Dimensions, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar, Image, RefreshControl, View, Alert } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {
+  Text,
+    Dimensions,
+    StyleSheet,
+    TouchableOpacity,
+    SafeAreaView,
+    FlatList,
+    Image,
+    RefreshControl,
+    View,
+    Alert,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import _ from 'lodash'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import MaskedView from '@react-native-community/masked-view'
+import _ from 'lodash';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaskedView from '@react-native-community/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
-import { useUserInfo } from '../hooks/useUserInfo'
+import { useUserInfo } from '../hooks/useUserInfo';
 import { useAuth } from '../hooks/useAuth';
 
 function Item({ item, onPress, backgroundColor, textColor }) {
@@ -102,19 +112,19 @@ export default HistoryListScreen = ({ navigation }) => {
     }, [refreshing])
 
     const renderItem = ({ item, index }) => {
-        const backgroundColor = index % 2 == 0 ? "#fff" : "#ffe";
+        const backgroundColor = index % 2 == 0 ? "#fff" : "#f7f7f7";
         return (
             <Item
                 item={item}
                 onPress={() => {
                     console.log(item);
                     navigation.navigate("HistoryInfoScreen", {
-                        vehicle: item.vehicle, 
-                        code: item.code, 
-                        type: item.type, 
-                        status: item.status, 
-                        date: item.date, 
-                        receiver: item.receiver, 
+                        vehicle: item.vehicle,
+                        code: item.code,
+                        type: item.type,
+                        status: item.status,
+                        date: item.date,
+                        receiver: item.receiver,
                         totalQuantity: item.totalQuantity
                     })
                 }}
@@ -127,7 +137,7 @@ export default HistoryListScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            { newsData[0] != undefined ? (
+            {newsData[0] != undefined ? (
                 <FlatList
                     data={newsData}
                     renderItem={renderItem}
@@ -187,19 +197,13 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     item: {
-        elevation: 10,
         flexDirection: "row",
         marginHorizontal: 10,
-        marginVertical: 5,
+        paddingVertical: 5,
         paddingRight: 5,
-        borderRadius: 10,
         backgroundColor: "#FFF",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        }
-
+        borderBottomWidth: 1,
+        borderBottomColor: "#0d60ae",
     },
     date: {
         fontSize: 10,

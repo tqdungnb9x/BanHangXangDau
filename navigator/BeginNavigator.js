@@ -16,9 +16,8 @@ import { UserInfoTest } from '../screens/UserInfoTest'
 
 const Stack = createStackNavigator();
 
-export const BeginNavigator = () => {
+export const BeginNavigator = (props) => {
 
-    const [splash, setSplash] = useState(true)
 
     // const [component, setComponent] = useState(<SplashScreen />);
     // setTimeout(() => {
@@ -28,20 +27,10 @@ export const BeginNavigator = () => {
     // return (component);
     // // return(<MapTest/>)
 
-    useEffect(() => {
-        setTimeout(() => {
-            setSplash(false)
-        }, 200);
-    }, []);
+
     return (
-        <View style={{ flex: 1 }}>
-            {
-                splash ? (
-                    <SplashScreen />
-                ) : (
-                    <HomeTab />
-                )
-            }
-        </View>
+
+        <HomeTab initialRouteName={props.initialRouteName} />
+
     )
 }

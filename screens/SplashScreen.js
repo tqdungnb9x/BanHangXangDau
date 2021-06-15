@@ -11,16 +11,12 @@ import {
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 
-
-
 export const SplashScreen = () => {
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#0d60ae" barStyle="light-content" />
         <View style={styles.shadow}>
-
-
           <Animatable.Image
             animation="fadeIn"
             duration={2000}
@@ -34,13 +30,14 @@ export const SplashScreen = () => {
         <Text
           style={{
             color: '#ffff',
-            fontSize: 30,
-            fontWeight: 'bold',
+            fontSize: 25,
             textAlign: 'center',
-            paddingHorizontal:10
+            fontWeight: 'bold',
+            paddingHorizontal:20,
+
           }}
         >
-          Ứng dụng bán hàng toàn quốc dành cho tài xế
+          Ứng dụng kinh doanh xăng dầu điện tử
         </Text>
     </View>
   );

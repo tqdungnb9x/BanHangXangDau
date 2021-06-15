@@ -23,6 +23,7 @@ export default HistoryStack = () => {
                 component={HistoryListScreen}
                 options={({ navigation }) => ({
                     headerTitle: "Lịch sử đơn hàng",
+                    headerTitleAlign: 'center',
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -38,6 +39,7 @@ export default HistoryStack = () => {
                 component={HistoryInfoScreen}
                 options={{
                     headerTitle: "Thông tin chi tiết",
+                    headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,

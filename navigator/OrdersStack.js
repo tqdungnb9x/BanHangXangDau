@@ -21,6 +21,7 @@ export default OrdersStack = () => {
                 component={OrdersListScreen}
                 options={({ navigation }) => ({
                     headerTitle: "Đơn hàng",
+                    headerTitleAlign: 'center',
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -48,6 +49,7 @@ export default OrdersStack = () => {
                 component={OrdersInfoScreen}
                 options={{
                     headerTitle: "Thông tin chi tiết",
+                    headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -62,6 +64,7 @@ export default OrdersStack = () => {
                 component={QRScreen}
                 options={{
                     headerTitle: "Mã QR",
+                    headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,

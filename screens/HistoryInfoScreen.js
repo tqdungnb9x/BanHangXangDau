@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Dimensions, StyleSheet, TouchableOpacity, View, Text, } from "react-native";
-import Ionicon from "react-native-vector-icons/Ionicons";
+/* eslint-disable prettier/prettier */
+import React from 'react';
+import { Dimensions, StyleSheet, View, Text } from 'react-native';
 
 export const HistoryInfoScreen = ({ route, navigation }) => {
   const { vehicle, code, type, status, date, receiver, totalQuantity } = route.params;
   return (
     <View style={styles.text}>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Người nhận hàng:</Text>
+        <Text style={{ fontSize: 18 }}>Người nhận hàng:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{receiver}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Ngày tạo đơn</Text>
+        <Text style={{ fontSize: 18 }}>Ngày tạo đơn:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{date}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Trạng thái:</Text>
+        <Text style={{ fontSize: 18 }}>Trạng thái:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{status}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Loại đơn:</Text>
+        <Text style={{ fontSize: 18 }}>Loại đơn:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{type}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Phương tiện:</Text>
+        <Text style={{ fontSize: 18 }}>Phương tiện:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{vehicle}</Text>
       </View>
     </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   loading: {
     height: height_loading,
     width: height_loading,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   logo: {
     flex: 1,

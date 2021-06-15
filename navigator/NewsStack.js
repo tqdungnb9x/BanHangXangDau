@@ -7,15 +7,13 @@ import NewsList from '../screens/NewsList'
 import NewsDetail from '../screens/NewsDetail'
 import { UserInfoScreen } from '../screens/UserInfoScreen';
 import { ChangePassword } from '../screens/ChangePassword';
-import { Image } from 'react-native';
-import UserStack from './UserStack';
 import { ChangeAddress } from '../screens/ChangeAddress';
 import { ChangeEmail } from '../screens/ChangeEmail';
 
 const Stack = createStackNavigator();
 
 export default NewsStack = () => {
-    
+
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -24,6 +22,7 @@ export default NewsStack = () => {
                 options={({ navigation }) => ({
                     // title: "Tin tức",
                     headerTitle: "Tin tức",
+                    headerTitleAlign: 'center',
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -32,14 +31,12 @@ export default NewsStack = () => {
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                    headerLeft: () => (
-                        <View/>
-                    ),
+
                     headerRight: () => (
                         <Icon.Button
                             name="person-outline"
                             size={25}
-                            color="#0d60ae"                            
+                            color="#0d60ae"
                             backgroundColor="#fff"
                             onPress={() => navigation.navigate('UserInfoScreen')}
                         />
@@ -67,12 +64,14 @@ export default NewsStack = () => {
                     },
                 }}
             />
-            
+
             <Stack.Screen
                 name="UserInfoScreen"
                 component={UserInfoScreen}
                 options={({ navigation }) => ({
                     headerTitle: "Thông tin cá nhân",
+                    headerTitleAlign: 'center',
+
                     // headerStyle: { backgroundColor: "#2c6fb2" },
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -81,7 +80,7 @@ export default NewsStack = () => {
                         textAlign: 'center',
                         alignItems: 'center'
                     },
-                    
+
                 })}
             />
             <Stack.Screen
@@ -89,6 +88,8 @@ export default NewsStack = () => {
                 component={ChangePassword}
                 options={{
                     headerTitle: "Đổi mật khẩu",
+                    headerTitleAlign: 'center',
+
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -103,6 +104,8 @@ export default NewsStack = () => {
                 component={ChangeAddress}
                 options={{
                     headerTitle: "Đổi địa chỉ",
+                    headerTitleAlign: 'center',
+
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -117,6 +120,8 @@ export default NewsStack = () => {
                 component={ChangeEmail}
                 options={{
                     headerTitle: "Đổi email",
+                    headerTitleAlign: 'center',
+
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -126,7 +131,7 @@ export default NewsStack = () => {
                     },
                 }}
             />
-            
+
         </Stack.Navigator>
     );
 };

@@ -7,11 +7,11 @@ export const OrdersInfoScreen = ({ route, navigation }) => {
   return (
     <View style={styles.text}>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Người nhận hàng:</Text>
+        <Text style={{  fontSize: 18 }}>Người nhận:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{receiver}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={{  fontSize: 18 }}>Ngày tạo đơn</Text>
+        <Text style={{  fontSize: 18 }}>Ngày tạo đơn:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{date}</Text>
       </View>
       <View style={styles.content}>
@@ -21,6 +21,10 @@ export const OrdersInfoScreen = ({ route, navigation }) => {
       <View style={styles.content}>
         <Text style={{  fontSize: 18 }}>Loại đơn:</Text>
         <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{type}</Text>
+      </View>
+      <View style={styles.content}>
+        <Text style={{  fontSize: 18 }}>Số lượng:</Text>
+        <Text style={{ fontSize: 18, textAlign: "right", fontWeight: "bold", }}>{totalQuantity} lít</Text>
       </View>
       <View style={styles.content}>
         <Text style={{  fontSize: 18 }}>Phương tiện:</Text>

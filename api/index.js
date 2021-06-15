@@ -10,7 +10,7 @@ const setAuthToken = (token) => {
 
 const create = () => {
   const api = axios.create({
-    baseURL: 'https://0vd92.sse.codesandbox.io/',
+    baseURL: 'https://xgc5h.sse.codesandbox.io/',
     timeout: 60000, // 1p
   });
 

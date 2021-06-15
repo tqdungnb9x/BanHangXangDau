@@ -36,7 +36,7 @@ export const QRScreen = ({ navigation }) => {
     ));
 
   const getQRCode = () => {
-    axios.get("https://0vd92.sse.codesandbox.io/qrcode/getQRCode").then(function (response) {
+    axios.get("https://xgc5h.sse.codesandbox.io/qrcode/getQRCode").then(function (response) {
       setQRCode(response.data.QRCode);
       console.log(QRCode)
       console.log(timeLeft);
