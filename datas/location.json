@@ -1,0 +1,69 @@
+{
+    'map': [
+        {
+          address:
+            'Đường Láng, Tổ 13, Phường Láng Thượng, Quận Đống Đa, Hà Nội, Việt Nam',
+          email: 'chxd51.kv1@petrolimex.com.vn',
+          latitude: 21.020601,
+          longitude: 105.801443,
+          name: 'Cửa hàng xăng dầu số 37 - Công ty Xăng dầu Khu vực I',
+          phone: '(024) 38626792',
+          province: 'Hà Nội',
+          time: 'Giờ bán hàng: 5:00 SA - 23:00 CH',
+          url:
+            'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=21.020601,105.801443',
+        },
+        {
+          address:
+            'Số 484 phố Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội, Việt Nam',
+          email: 'chxd51.kv1@petrolimex.com.vn',
+          latitude: 20.997778,
+          longitude: 105.867097,
+          name: 'Cửa hàng xăng dầu số 51 - Công ty Xăng dầu Khu vực I',
+          phone: '(024) 38626792 ',
+          province: 'Hà Nội',
+          time: 'Giờ bán hàng: 5:00 SA - 23:00 CH    ',
+          url:
+            'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.997778,105.867097',
+        },
+        {
+          address:
+            'Số 32 phố Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Hà Nội, Việt Nam',
+          email: 'chxd52.kv1@petrolimex.com.vn',
+          latitude: 20.983521,
+          longitude: 105.846869,
+          name: 'Cửa hàng xăng dầu số 52 - Công ty Xăng dầu Khu vực I',
+          phone: '(024) 38641224',
+          province: 'Hà Nội',
+          time: 'Giờ bán hàng: 5:00 SA - 23:00 CH',
+          url:
+            'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.983521,105.846869',
+        },
+        {
+          address:
+            'Số 121 phố Định Công, Phường Định Công, Quận Hoàng Mai, Hà Nội, Việt Nam',
+          email: 'chxd55.kv1@petrolimex.com.vn',
+          latitude: 20.9842,
+          longitude: 105.838238,
+          name: 'Cửa hàng xăng dầu số 55 - Công ty Xăng dầu Khu vực I',
+          phone: '(024) 38641224',
+          province: 'Hà Nội',
+          time: 'Giờ bán hàng: 5:00 SA - 23:00 CH',
+          url:
+            'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.9842,105.838238',
+        },
+        {
+          address:
+            'Km06 đường Giải Phóng, Phường Giáp Bát, Quận Hoàng Mai, Hà Nội, Việt Nam',
+          email: 'chxd53.kv1@petrolimex.com.vn',
+          latitude: 20.985253,
+          longitude: 105.84119,
+          name: 'Cửa hàng xăng dầu số 53 - Công ty Xăng dầu Khu vực I',
+          phone: '(024) 38641224',
+          province: 'Hà Nội',
+          time: 'Giờ bán hàng: 5:00 SA - 24:00 CH',
+          url:
+            'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=20.985253,105.84119',
+        }
+      ]
+}

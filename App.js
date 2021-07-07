@@ -34,7 +34,6 @@ export { store };
 
 const App = () => {
 
-  const [initialRouteName, setInitialRouteName] = useState("NewsScreen");
   const [isNoti, setIsNoti] = useState(false)
   useEffect(() => {
     messaging().hasPermission().then((enabled) => {
@@ -85,7 +84,7 @@ const App = () => {
 
       </NavigationContainer> */}
 
-        <BeginNavigator initialRouteName={initialRouteName} />
+        <BeginNavigator  />
 
       </PersistGate>
 

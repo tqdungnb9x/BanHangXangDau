@@ -8,7 +8,8 @@ const backgroundMessageService = () => {
 const foregroundMessageService = () => {
   messaging().onMessage(async remoteMessage => {
     console.log('Message handled in the foreground!', remoteMessage);
-    Alert.alert('Bạn có thông báo mới', [
+    Alert.alert('Bạn có thông báo mới',
+    [
       { text: "OK", onPress: () => console.log("OK Pressed") }
     ]
     );

@@ -1,33 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 
 import { createStackNavigator } from "@react-navigation/stack";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../screens/HomeScreen'
 import MapScreen from '../screens/MapScreen'
-import { BillListScreen } from '../screens/OrdersListScreen'
-import { HistoryScreen } from '../screens/HistoryScreen'
 import NewsStack from './NewsStack'
-import  NotificationScreen  from '../screens/NotificationScreen'
-
+import NotificationScreen from '../screens/NotificationScreen'
 import { useAuth } from '../hooks/useAuth'
-import MapTest from "../screens/MapTest";
-import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { BeginNavigator } from "./BeginNavigator";
-import { QRScreen } from "../screens/QRScreen";
-import { UserInfoScreen } from "../screens/UserInfoScreen";
+import { NavigationContainer, getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import OrdersStack from "./OrdersStack";
 import { SignInScreen } from "../screens/SignInScreen";
 import HistoryStack from "./HistoryStack";
-
+import messaging from '@react-native-firebase/messaging';
+import { foregroundMessageService, backgroundOpenedAppService } from '../FCMservices'
 
 const Tab = createBottomTabNavigator();
 
-
-
 export default function HomeTab(props) {
+  const [initialRouteName, setInitialRouteName] = useState("NewsScreen");
+  const [isNoti, setIsNoti] = useState(false)
+  const [loading, setLoading] = useState(true);
+  
+  // const navigation = useNavigation();
+  // useEffect(() => {
+  //   messaging().getInitialNotification()
+  //     .then(remoteMessage => {
+  //       if (remoteMessage) {
+  //         console.log(
+  //           'Notification caused app to open from quit state:',
+  //           remoteMessage.notification,
+  //         );
+  //         setInitialRouteName(remoteMessage.data.screen);
+  //       }
+  //       setLoading(false);
+  //     });
+
+  //   messaging().onNotificationOpenedApp(remoteMessage => {
+  //     console.log(
+  //       'Notification caused app to open from background state:',
+  //       remoteMessage.notification,
+  //     );
+  //     navigation.navigate("NotificationScreen");
+  //   });
+
+  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //     console.log('Message handled in the foreground!', remoteMessage);
+  //     Alert.alert('Bạn có thông báo mới',
+  //     [
+  //       { text: "OK", onPress: () => navigation.navigate("Description Screen")
+  //     }
+  //     ]
+  //     );
+  //   });
+  //   return unsubscribe;
+  // }, []);
+
+  // if (loading) {
+  //   return null;
+  // }
+
   function NewsStackVisibility(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? "";
 
@@ -40,28 +73,6 @@ export default function HomeTab(props) {
     }
     return true;
   }
-  // function OrdersStackVisibility(route) {
-  //   const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-  //   if (
-  //     routeName === 'OrdersInfoScreen' ||
-  //     routeName === 'QRScreen'
-  //   ) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
-  // function HistoryScreenVisibility(route) {
-  //   const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-
-  //   if (
-  //     routeName === 'HistoryInfoScreen' 
-  //   ) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
 
   const { auth } = useAuth();
 
@@ -69,7 +80,7 @@ export default function HomeTab(props) {
     <NavigationContainer>
       {
         auth.loggedIn ? (
-          <Tab.Navigator initialRouteName={props.initialRouteName} activeColor="#0d60ae" inactiveColor="#eae9e9" shifting={true} >
+          <Tab.Navigator initialRouteName={initialRouteName} activeColor="#0d60ae" inactiveColor="#eae9e9" shifting={true} >
             <Tab.Screen
               name="NewsScreen"
               component={NewsStack}

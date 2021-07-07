@@ -52,7 +52,8 @@ const TEST2 = {
   latitude: 21.028660076385226,
   longitude: 105.77721532546406,
 }
-const GOOGLE_MAPS_APIKEY = 'AIzaSyDzO6BPPT_-wFGXkDsY2xkcmwxJNaRjqBU'
+const GOOGLE_MAPS_APIKEY = 'AIzaSyBmk7HRAHAu8lytydkGGWw7dWy-sSNcaEI'
+
 
 async function requestLocationPermission() {
   try {
@@ -283,8 +284,6 @@ class MapScreen extends React.Component {
           {this.state.origin.latitude != null ? (
             <MapViewDirections
               language='vi'
-              // origin={this.state.latitude, this.state.longitude}
-              // origin={this.state.coordinate}
               origin={this.state.origin}
               destination={this.state.destination}
               apikey={GOOGLE_MAPS_APIKEY}
@@ -311,10 +310,11 @@ class MapScreen extends React.Component {
         <View style={styles.search}>
 
           <GooglePlacesAutocomplete
+            minLength={2}
             fetchDetails={true}
             placeholder='Tìm kiếm'
             onFail={(error) => {
-              console.log(error);
+              console.log("error search", error);
             }}
             onNotFound={() => {
               Alert.alert(
@@ -328,7 +328,7 @@ class MapScreen extends React.Component {
             }}
             onPress={(data, details) => {
               // 'details' is provided when fetchDetails = true
-              console.log('search ', details.name)
+              console.log('search ', details.opening_hours)
               this.setState({
                 details: {
                   name: details.name,
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   },
   search: {
     position: 'absolute',
-    height: 100,
+    height: 200,
     top: 0,
     left: 0,
     right: 0,
